@@ -269,6 +269,11 @@ HTML_TEMPLATE = """<!doctype html>
       background: var(--soft);
     }
 
+    .control.is-fixed {
+      border-color: color-mix(in srgb, var(--accent), #ffffff 55%);
+      background: #ffffff;
+    }
+
     .control-head {
       display: flex;
       justify-content: space-between;
@@ -285,6 +290,30 @@ HTML_TEMPLATE = """<!doctype html>
 
     input[type="range"] {
       width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="range"]:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .control-lock {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 800;
+      user-select: none;
+    }
+
+    .control-lock input {
+      width: 16px;
+      height: 16px;
+      margin: 0;
       accent-color: var(--accent);
     }
 
@@ -558,6 +587,7 @@ HTML_TEMPLATE = """<!doctype html>
     const DATA = JSON.parse(document.getElementById("dashboard-data").textContent);
     const componentKeys = DATA.components.map((component) => component.key);
     let weights = { ...DATA.defaultWeights };
+    let fixedWeights = Object.fromEntries(componentKeys.map((key) => [key, false]));
 
     const formatScore = new Intl.NumberFormat("ko-KR", {
       minimumFractionDigits: 2,
@@ -576,11 +606,25 @@ HTML_TEMPLATE = """<!doctype html>
     }
 
     function distributeRemainder(changedKey, changedValue) {
-      const next = { ...weights, [changedKey]: clampWeight(changedValue) };
-      const remaining = 100 - next[changedKey];
-      const rest = componentKeys.filter((key) => key !== changedKey);
-      const oldTotal = rest.reduce((sum, key) => sum + weights[key], 0);
-      const exact = rest.map((key) => (oldTotal > 0 ? (weights[key] / oldTotal) * remaining : remaining / rest.length));
+      const next = { ...weights };
+      const fixedRest = componentKeys.filter((key) => key !== changedKey && fixedWeights[key]);
+      const adjustableRest = componentKeys.filter((key) => key !== changedKey && !fixedWeights[key]);
+      const fixedRestTotal = fixedRest.reduce((sum, key) => sum + weights[key], 0);
+      const maxChanged = Math.max(0, 100 - fixedRestTotal);
+
+      next[changedKey] = Math.min(clampWeight(changedValue), maxChanged);
+      const remaining = 100 - fixedRestTotal - next[changedKey];
+
+      if (adjustableRest.length === 0) {
+        next[changedKey] = maxChanged;
+        weights = next;
+        return;
+      }
+
+      const oldTotal = adjustableRest.reduce((sum, key) => sum + weights[key], 0);
+      const exact = adjustableRest.map((key) =>
+        oldTotal > 0 ? (weights[key] / oldTotal) * remaining : remaining / adjustableRest.length
+      );
       const floors = exact.map((value) => Math.floor(value));
       let leftover = remaining - floors.reduce((sum, value) => sum + value, 0);
       const order = exact
@@ -594,14 +638,17 @@ HTML_TEMPLATE = """<!doctype html>
         pointer += 1;
       }
 
-      rest.forEach((key, index) => {
+      adjustableRest.forEach((key, index) => {
         next[key] = floors[index];
       });
       weights = next;
     }
 
-    function setWeights(nextWeights) {
+    function setWeights(nextWeights, options = {}) {
       weights = { ...nextWeights };
+      if (options.clearLocks !== false) {
+        fixedWeights = Object.fromEntries(componentKeys.map((key) => [key, false]));
+      }
       update();
     }
 
@@ -626,14 +673,15 @@ HTML_TEMPLATE = """<!doctype html>
     function renderControls() {
       controlsEl.replaceChildren();
       DATA.components.forEach((component) => {
-        const wrap = document.createElement("label");
+        const wrap = document.createElement("div");
         wrap.className = "control";
-        wrap.htmlFor = `weight-${component.key}`;
+        wrap.id = `control-${component.key}`;
 
         const head = document.createElement("div");
         head.className = "control-head";
 
-        const label = document.createElement("span");
+        const label = document.createElement("label");
+        label.htmlFor = `weight-${component.key}`;
         label.textContent = component.label;
 
         const value = document.createElement("span");
@@ -652,8 +700,25 @@ HTML_TEMPLATE = """<!doctype html>
           update();
         });
 
+        const lockLabel = document.createElement("label");
+        lockLabel.className = "control-lock";
+        lockLabel.htmlFor = `lock-${component.key}`;
+
+        const lock = document.createElement("input");
+        lock.id = `lock-${component.key}`;
+        lock.type = "checkbox";
+        lock.setAttribute("aria-label", `${component.label} 가중치 고정`);
+        lock.addEventListener("change", (event) => {
+          fixedWeights[component.key] = event.target.checked;
+          update();
+        });
+
+        const lockText = document.createElement("span");
+        lockText.textContent = "고정";
+        lockLabel.append(lock, lockText);
+
         head.append(label, value);
-        wrap.append(head, input);
+        wrap.append(head, input, lockLabel);
         controlsEl.append(wrap);
       });
     }
@@ -804,10 +869,15 @@ HTML_TEMPLATE = """<!doctype html>
 
     function updateControls() {
       DATA.components.forEach((component) => {
+        const wrap = document.getElementById(`control-${component.key}`);
         const input = document.getElementById(`weight-${component.key}`);
         const value = document.getElementById(`value-${component.key}`);
+        const lock = document.getElementById(`lock-${component.key}`);
         input.value = String(weights[component.key]);
+        input.disabled = fixedWeights[component.key];
         value.textContent = `${weights[component.key]}%`;
+        lock.checked = fixedWeights[component.key];
+        wrap.classList.toggle("is-fixed", fixedWeights[component.key]);
       });
       const total = componentKeys.reduce((sum, key) => sum + weights[key], 0);
       totalEl.textContent = `${total}%`;

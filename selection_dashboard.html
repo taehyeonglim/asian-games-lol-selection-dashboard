@@ -133,6 +133,11 @@
       background: var(--soft);
     }
 
+    .control.is-fixed {
+      border-color: color-mix(in srgb, var(--accent), #ffffff 55%);
+      background: #ffffff;
+    }
+
     .control-head {
       display: flex;
       justify-content: space-between;
@@ -149,6 +154,30 @@
 
     input[type="range"] {
       width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="range"]:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .control-lock {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 800;
+      user-select: none;
+    }
+
+    .control-lock input {
+      width: 16px;
+      height: 16px;
+      margin: 0;
       accent-color: var(--accent);
     }
 
@@ -386,7 +415,7 @@
   </style>
 </head>
 <body>
-  <script type="application/json" id="dashboard-data">{"generatedAt":"2026-05-19 03:03:41","components":[{"key":"league","label":"리그","field":"league_score_avg"},{"key":"worlds","label":"월즈","field":"worlds_score_avg"},{"key":"kespa","label":"KeSPA","field":"kespa_score_avg"},{"key":"allpro","label":"All-Pro","field":"allpro_norm_0_100"},{"key":"pog_pom","label":"POG/POM","field":"pog_pom_norm_0_100"}],"defaultWeights":{"league":17,"worlds":26,"kespa":5,"allpro":5,"pog_pom":47},"groups":[{"key":"top","label":"Top","players":["Zeus","Kiin"]},{"key":"jungle","label":"Jungle","players":["Canyon","Oner"]},{"key":"bot","label":"Bot","players":["Gumayusi","Peyz","Viper"]}],"players":{"Zeus":{"name":"Zeus","scores":{"league":84.0,"worlds":77.5,"kespa":85.0,"allpro":33.33,"pog_pom":91.43},"color":"#d1495b"},"Kiin":{"name":"Kiin","scores":{"league":93.0,"worlds":65.0,"kespa":37.5,"allpro":100.0,"pog_pom":69.57},"color":"#2a9d8f"},"Canyon":{"name":"Canyon","scores":{"league":93.0,"worlds":65.0,"kespa":37.5,"allpro":100.0,"pog_pom":100.0},"color":"#264653"},"Oner":{"name":"Oner","scores":{"league":75.0,"worlds":100.0,"kespa":62.5,"allpro":55.56,"pog_pom":87.0},"color":"#e9a13b"},"Gumayusi":{"name":"Gumayusi","scores":{"league":80.0,"worlds":100.0,"kespa":55.0,"allpro":22.22,"pog_pom":43.57},"color":"#e76f51"},"Peyz":{"name":"Peyz","scores":{"league":93.75,"worlds":65.0,"kespa":100.0,"allpro":100.0,"pog_pom":61.04},"color":"#457b9d"},"Viper":{"name":"Viper","scores":{"league":83.0,"worlds":55.0,"kespa":65.0,"allpro":88.89,"pog_pom":73.91},"color":"#6a994e"}},"validation":[{"area":"LPL regular rows","status":"corrected/partial","finding":"Changed Viper/BLG 2026 Split 1 league row from playoff champion rank 1 to regular Group Ascend rank 2; added JDG/Peyz 2025 Split 1 regular row.","action":"Do not run final Gumayusi-Peyz-Viper weighting until missing LPL Split 2/3 regular and POG/POM rows are completed."},{"area":"LPL POG/POM","status":"incomplete","finding":"LPL POG/POM/MVP rows for Peyz and Viper are not collected in POG_POM.","action":"Candidate_Summary currently undercounts Peyz/Viper POG/POM."},{"area":"POG/POM scope","status":"partial","finding":"POG_POM is candidate-focused and not a full league-wide POG archive; some context-player values are intentionally absent.","action":"Use source pages directly or expand POG_POM before doing full-league normalization or cross-position rankings."},{"area":"Detailed stats","status":"incomplete","finding":"KDA, KP, DPM, GD@14, vision and other detailed player stats are not collected.","action":"Workbook is usable for first-review public indices only, not final detailed-stat review."}],"botWarning":"원딜 비교는 LPL POG/POM/상세지표 미완성으로 참고용입니다."}</script>
+  <script type="application/json" id="dashboard-data">{"generatedAt":"2026-05-19 03:10:58","components":[{"key":"league","label":"리그","field":"league_score_avg"},{"key":"worlds","label":"월즈","field":"worlds_score_avg"},{"key":"kespa","label":"KeSPA","field":"kespa_score_avg"},{"key":"allpro","label":"All-Pro","field":"allpro_norm_0_100"},{"key":"pog_pom","label":"POG/POM","field":"pog_pom_norm_0_100"}],"defaultWeights":{"league":17,"worlds":26,"kespa":5,"allpro":5,"pog_pom":47},"groups":[{"key":"top","label":"Top","players":["Zeus","Kiin"]},{"key":"jungle","label":"Jungle","players":["Canyon","Oner"]},{"key":"bot","label":"Bot","players":["Gumayusi","Peyz","Viper"]}],"players":{"Zeus":{"name":"Zeus","scores":{"league":84.0,"worlds":77.5,"kespa":85.0,"allpro":33.33,"pog_pom":91.43},"color":"#d1495b"},"Kiin":{"name":"Kiin","scores":{"league":93.0,"worlds":65.0,"kespa":37.5,"allpro":100.0,"pog_pom":69.57},"color":"#2a9d8f"},"Canyon":{"name":"Canyon","scores":{"league":93.0,"worlds":65.0,"kespa":37.5,"allpro":100.0,"pog_pom":100.0},"color":"#264653"},"Oner":{"name":"Oner","scores":{"league":75.0,"worlds":100.0,"kespa":62.5,"allpro":55.56,"pog_pom":87.0},"color":"#e9a13b"},"Gumayusi":{"name":"Gumayusi","scores":{"league":80.0,"worlds":100.0,"kespa":55.0,"allpro":22.22,"pog_pom":43.57},"color":"#e76f51"},"Peyz":{"name":"Peyz","scores":{"league":93.75,"worlds":65.0,"kespa":100.0,"allpro":100.0,"pog_pom":61.04},"color":"#457b9d"},"Viper":{"name":"Viper","scores":{"league":83.0,"worlds":55.0,"kespa":65.0,"allpro":88.89,"pog_pom":73.91},"color":"#6a994e"}},"validation":[{"area":"LPL regular rows","status":"corrected/partial","finding":"Changed Viper/BLG 2026 Split 1 league row from playoff champion rank 1 to regular Group Ascend rank 2; added JDG/Peyz 2025 Split 1 regular row.","action":"Do not run final Gumayusi-Peyz-Viper weighting until missing LPL Split 2/3 regular and POG/POM rows are completed."},{"area":"LPL POG/POM","status":"incomplete","finding":"LPL POG/POM/MVP rows for Peyz and Viper are not collected in POG_POM.","action":"Candidate_Summary currently undercounts Peyz/Viper POG/POM."},{"area":"POG/POM scope","status":"partial","finding":"POG_POM is candidate-focused and not a full league-wide POG archive; some context-player values are intentionally absent.","action":"Use source pages directly or expand POG_POM before doing full-league normalization or cross-position rankings."},{"area":"Detailed stats","status":"incomplete","finding":"KDA, KP, DPM, GD@14, vision and other detailed player stats are not collected.","action":"Workbook is usable for first-review public indices only, not final detailed-stat review."}],"botWarning":"원딜 비교는 LPL POG/POM/상세지표 미완성으로 참고용입니다."}</script>
   <main class="shell">
     <header>
       <div>
@@ -422,6 +451,7 @@
     const DATA = JSON.parse(document.getElementById("dashboard-data").textContent);
     const componentKeys = DATA.components.map((component) => component.key);
     let weights = { ...DATA.defaultWeights };
+    let fixedWeights = Object.fromEntries(componentKeys.map((key) => [key, false]));
 
     const formatScore = new Intl.NumberFormat("ko-KR", {
       minimumFractionDigits: 2,
@@ -440,11 +470,25 @@
     }
 
     function distributeRemainder(changedKey, changedValue) {
-      const next = { ...weights, [changedKey]: clampWeight(changedValue) };
-      const remaining = 100 - next[changedKey];
-      const rest = componentKeys.filter((key) => key !== changedKey);
-      const oldTotal = rest.reduce((sum, key) => sum + weights[key], 0);
-      const exact = rest.map((key) => (oldTotal > 0 ? (weights[key] / oldTotal) * remaining : remaining / rest.length));
+      const next = { ...weights };
+      const fixedRest = componentKeys.filter((key) => key !== changedKey && fixedWeights[key]);
+      const adjustableRest = componentKeys.filter((key) => key !== changedKey && !fixedWeights[key]);
+      const fixedRestTotal = fixedRest.reduce((sum, key) => sum + weights[key], 0);
+      const maxChanged = Math.max(0, 100 - fixedRestTotal);
+
+      next[changedKey] = Math.min(clampWeight(changedValue), maxChanged);
+      const remaining = 100 - fixedRestTotal - next[changedKey];
+
+      if (adjustableRest.length === 0) {
+        next[changedKey] = maxChanged;
+        weights = next;
+        return;
+      }
+
+      const oldTotal = adjustableRest.reduce((sum, key) => sum + weights[key], 0);
+      const exact = adjustableRest.map((key) =>
+        oldTotal > 0 ? (weights[key] / oldTotal) * remaining : remaining / adjustableRest.length
+      );
       const floors = exact.map((value) => Math.floor(value));
       let leftover = remaining - floors.reduce((sum, value) => sum + value, 0);
       const order = exact
@@ -458,14 +502,17 @@
         pointer += 1;
       }
 
-      rest.forEach((key, index) => {
+      adjustableRest.forEach((key, index) => {
         next[key] = floors[index];
       });
       weights = next;
     }
 
-    function setWeights(nextWeights) {
+    function setWeights(nextWeights, options = {}) {
       weights = { ...nextWeights };
+      if (options.clearLocks !== false) {
+        fixedWeights = Object.fromEntries(componentKeys.map((key) => [key, false]));
+      }
       update();
     }
 
@@ -490,14 +537,15 @@
     function renderControls() {
       controlsEl.replaceChildren();
       DATA.components.forEach((component) => {
-        const wrap = document.createElement("label");
+        const wrap = document.createElement("div");
         wrap.className = "control";
-        wrap.htmlFor = `weight-${component.key}`;
+        wrap.id = `control-${component.key}`;
 
         const head = document.createElement("div");
         head.className = "control-head";
 
-        const label = document.createElement("span");
+        const label = document.createElement("label");
+        label.htmlFor = `weight-${component.key}`;
         label.textContent = component.label;
 
         const value = document.createElement("span");
@@ -516,8 +564,25 @@
           update();
         });
 
+        const lockLabel = document.createElement("label");
+        lockLabel.className = "control-lock";
+        lockLabel.htmlFor = `lock-${component.key}`;
+
+        const lock = document.createElement("input");
+        lock.id = `lock-${component.key}`;
+        lock.type = "checkbox";
+        lock.setAttribute("aria-label", `${component.label} 가중치 고정`);
+        lock.addEventListener("change", (event) => {
+          fixedWeights[component.key] = event.target.checked;
+          update();
+        });
+
+        const lockText = document.createElement("span");
+        lockText.textContent = "고정";
+        lockLabel.append(lock, lockText);
+
         head.append(label, value);
-        wrap.append(head, input);
+        wrap.append(head, input, lockLabel);
         controlsEl.append(wrap);
       });
     }
@@ -668,10 +733,15 @@
 
     function updateControls() {
       DATA.components.forEach((component) => {
+        const wrap = document.getElementById(`control-${component.key}`);
         const input = document.getElementById(`weight-${component.key}`);
         const value = document.getElementById(`value-${component.key}`);
+        const lock = document.getElementById(`lock-${component.key}`);
         input.value = String(weights[component.key]);
+        input.disabled = fixedWeights[component.key];
         value.textContent = `${weights[component.key]}%`;
+        lock.checked = fixedWeights[component.key];
+        wrap.classList.toggle("is-fixed", fixedWeights[component.key]);
       });
       const total = componentKeys.reduce((sum, key) => sum + weights[key], 0);
       totalEl.textContent = `${total}%`;
