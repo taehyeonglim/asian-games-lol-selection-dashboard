@@ -353,6 +353,184 @@
       font-weight: 800;
     }
 
+    .simulation-panel {
+      margin-top: 16px;
+      margin-bottom: 16px;
+      padding: 18px;
+    }
+
+    .simulation-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .simulation-title h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .simulation-title p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .simulation-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .bound-input {
+      display: grid;
+      gap: 5px;
+      min-width: 90px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .bound-input input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 9px;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .simulation-status {
+      min-height: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .simulation-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .simulation-kpi {
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+    }
+
+    .simulation-kpi-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .simulation-kpi-value {
+      margin-top: 6px;
+      font-size: 22px;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .simulation-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .simulation-box {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .simulation-box h3 {
+      margin: 0;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+      font-size: 14px;
+    }
+
+    .simulation-list {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .sim-row {
+      display: grid;
+      grid-template-columns: minmax(84px, 120px) 1fr minmax(80px, auto);
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .sim-label {
+      min-width: 0;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .sim-track {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #e7ebe8;
+    }
+
+    .sim-fill {
+      height: 100%;
+      border-radius: 8px;
+      background: var(--sim-color, var(--accent));
+    }
+
+    .sim-count {
+      color: var(--muted);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+    }
+
+    .scenario-details {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .scenario-details summary {
+      cursor: pointer;
+      padding: 12px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .scenario-table-wrap {
+      overflow-x: auto;
+      border-top: 1px solid var(--line);
+    }
+
+    .empty-note {
+      padding: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
     .warning {
       margin-top: 16px;
       padding: 14px 16px;
@@ -378,7 +556,8 @@
     @media (max-width: 900px) {
       header,
       .toolbar,
-      .group-head {
+      .group-head,
+      .simulation-head {
         align-items: stretch;
         flex-direction: column;
       }
@@ -389,8 +568,14 @@
       }
 
       .controls,
-      .summary-grid {
+      .summary-grid,
+      .simulation-kpis,
+      .simulation-grid {
         grid-template-columns: 1fr;
+      }
+
+      .simulation-controls {
+        justify-content: flex-start;
       }
     }
 
@@ -408,6 +593,14 @@
         grid-template-columns: 1fr;
       }
 
+      .sim-row {
+        grid-template-columns: 1fr;
+      }
+
+      .sim-count {
+        text-align: left;
+      }
+
       .candidate-score {
         text-align: left;
       }
@@ -415,7 +608,7 @@
   </style>
 </head>
 <body>
-  <script type="application/json" id="dashboard-data">{"generatedAt":"2026-05-19 09:02:17","components":[{"key":"league","label":"리그","field":"league_score_avg"},{"key":"worlds","label":"월즈","field":"worlds_score_avg"},{"key":"kespa","label":"KeSPA","field":"kespa_score_avg"},{"key":"allpro","label":"All-Pro","field":"allpro_norm_0_100"},{"key":"pog_pom","label":"POG/POM","field":"pog_pom_norm_0_100"}],"defaultWeights":{"league":17,"worlds":26,"kespa":5,"allpro":5,"pog_pom":47},"groups":[{"key":"top","label":"Top","players":["Zeus","Kiin","Doran"]},{"key":"jungle","label":"Jungle","players":["Canyon","Oner"]},{"key":"bot","label":"Bot","players":["Gumayusi","Peyz","Viper"]}],"players":{"Zeus":{"name":"Zeus","scores":{"league":84.0,"worlds":77.5,"kespa":85.0,"allpro":33.33,"pog_pom":91.43},"color":"#d1495b"},"Kiin":{"name":"Kiin","scores":{"league":93.0,"worlds":65.0,"kespa":37.5,"allpro":100.0,"pog_pom":69.57},"color":"#2a9d8f"},"Canyon":{"name":"Canyon","scores":{"league":93.0,"worlds":65.0,"kespa":37.5,"allpro":100.0,"pog_pom":100.0},"color":"#264653"},"Oner":{"name":"Oner","scores":{"league":75.0,"worlds":100.0,"kespa":62.5,"allpro":55.56,"pog_pom":87.0},"color":"#e9a13b"},"Gumayusi":{"name":"Gumayusi","scores":{"league":80.0,"worlds":100.0,"kespa":55.0,"allpro":22.22,"pog_pom":43.57},"color":"#e76f51"},"Peyz":{"name":"Peyz","scores":{"league":93.75,"worlds":65.0,"kespa":100.0,"allpro":100.0,"pog_pom":61.04},"color":"#457b9d"},"Viper":{"name":"Viper","scores":{"league":83.0,"worlds":55.0,"kespa":65.0,"allpro":88.89,"pog_pom":73.91},"color":"#6a994e"},"Doran":{"name":"Doran","scores":{"league":77.0,"worlds":77.5,"kespa":100.0,"allpro":55.56,"pog_pom":56.52},"color":"#8a5cf6"}},"validation":[{"area":"LPL regular rows","status":"corrected/partial","finding":"Changed Viper/BLG 2026 Split 1 league row from playoff champion rank 1 to regular Group Ascend rank 2; added JDG/Peyz 2025 Split 1 regular row.","action":"Do not run final Gumayusi-Peyz-Viper weighting until missing LPL Split 2/3 regular and POG/POM rows are completed."},{"area":"LPL POG/POM","status":"incomplete","finding":"LPL POG/POM/MVP rows for Peyz and Viper are not collected in POG_POM.","action":"Candidate_Summary currently undercounts Peyz/Viper POG/POM."},{"area":"POG/POM scope","status":"partial","finding":"POG_POM is candidate-focused and not a full league-wide POG archive; some context-player values are intentionally absent.","action":"Use source pages directly or expand POG_POM before doing full-league normalization or cross-position rankings."},{"area":"Detailed stats","status":"incomplete","finding":"KDA, KP, DPM, GD@14, vision and other detailed player stats are not collected.","action":"Workbook is usable for first-review public indices only, not final detailed-stat review."}],"botWarning":"원딜 비교는 LPL POG/POM/상세지표 미완성으로 참고용입니다."}</script>
+  <script type="application/json" id="dashboard-data">{"generatedAt":"2026-05-19 09:29:56","components":[{"key":"league","label":"리그","field":"league_score_avg"},{"key":"worlds","label":"월즈","field":"worlds_score_avg"},{"key":"kespa","label":"KeSPA","field":"kespa_score_avg"},{"key":"allpro","label":"All-Pro","field":"allpro_norm_0_100"},{"key":"pog_pom","label":"POG/POM","field":"pog_pom_norm_0_100"}],"defaultWeights":{"league":17,"worlds":26,"kespa":5,"allpro":5,"pog_pom":47},"groups":[{"key":"top","label":"Top","players":["Zeus","Kiin","Doran"]},{"key":"jungle","label":"Jungle","players":["Canyon","Oner"]},{"key":"bot","label":"Bot","players":["Gumayusi","Peyz","Viper"]}],"players":{"Zeus":{"name":"Zeus","scores":{"league":84.0,"worlds":77.5,"kespa":85.0,"allpro":33.33,"pog_pom":91.43},"color":"#d1495b"},"Kiin":{"name":"Kiin","scores":{"league":93.0,"worlds":65.0,"kespa":37.5,"allpro":100.0,"pog_pom":69.57},"color":"#2a9d8f"},"Canyon":{"name":"Canyon","scores":{"league":93.0,"worlds":65.0,"kespa":37.5,"allpro":100.0,"pog_pom":100.0},"color":"#264653"},"Oner":{"name":"Oner","scores":{"league":75.0,"worlds":100.0,"kespa":62.5,"allpro":55.56,"pog_pom":87.0},"color":"#e9a13b"},"Gumayusi":{"name":"Gumayusi","scores":{"league":80.0,"worlds":100.0,"kespa":55.0,"allpro":22.22,"pog_pom":43.57},"color":"#e76f51"},"Peyz":{"name":"Peyz","scores":{"league":93.75,"worlds":65.0,"kespa":100.0,"allpro":100.0,"pog_pom":61.04},"color":"#457b9d"},"Viper":{"name":"Viper","scores":{"league":83.0,"worlds":55.0,"kespa":65.0,"allpro":88.89,"pog_pom":73.91},"color":"#6a994e"},"Doran":{"name":"Doran","scores":{"league":77.0,"worlds":77.5,"kespa":100.0,"allpro":55.56,"pog_pom":56.52},"color":"#8a5cf6"}},"validation":[{"area":"LPL regular rows","status":"corrected/partial","finding":"Changed Viper/BLG 2026 Split 1 league row from playoff champion rank 1 to regular Group Ascend rank 2; added JDG/Peyz 2025 Split 1 regular row.","action":"Do not run final Gumayusi-Peyz-Viper weighting until missing LPL Split 2/3 regular and POG/POM rows are completed."},{"area":"LPL POG/POM","status":"incomplete","finding":"LPL POG/POM/MVP rows for Peyz and Viper are not collected in POG_POM.","action":"Candidate_Summary currently undercounts Peyz/Viper POG/POM."},{"area":"POG/POM scope","status":"partial","finding":"POG_POM is candidate-focused and not a full league-wide POG archive; some context-player values are intentionally absent.","action":"Use source pages directly or expand POG_POM before doing full-league normalization or cross-position rankings."},{"area":"Detailed stats","status":"incomplete","finding":"KDA, KP, DPM, GD@14, vision and other detailed player stats are not collected.","action":"Workbook is usable for first-review public indices only, not final detailed-stat review."}],"botWarning":"원딜 비교는 LPL POG/POM/상세지표 미완성으로 참고용입니다."}</script>
   <main class="shell">
     <header>
       <div>
@@ -441,6 +634,42 @@
     <section class="summary-grid" id="summary-grid" aria-label="포지션별 승자 요약"></section>
     <section class="groups" id="groups" aria-label="포지션별 비교 그래프"></section>
 
+    <section class="panel simulation-panel" aria-label="가중치 시나리오 전수조사">
+      <div class="simulation-head">
+        <div class="simulation-title">
+          <h2>가중치 시나리오 전수조사</h2>
+          <p>각 지표의 최소/최대 가중치를 정하고, 1% 단위 정수 조합 전체를 계산합니다.</p>
+        </div>
+        <div class="simulation-controls">
+          <label class="bound-input" for="simulation-min">
+            최저 %
+            <input id="simulation-min" type="number" min="0" max="100" step="1" value="5">
+          </label>
+          <label class="bound-input" for="simulation-max">
+            최고 %
+            <input id="simulation-max" type="number" min="0" max="100" step="1" value="40">
+          </label>
+          <button class="btn" id="run-simulation" type="button">시뮬레이션 실행</button>
+        </div>
+      </div>
+      <div class="simulation-status" id="simulation-status">최저 5%, 최고 40% 조건으로 실행할 수 있습니다.</div>
+      <div class="simulation-kpis" id="simulation-kpis"></div>
+      <div class="simulation-grid">
+        <section class="simulation-box" aria-label="포지션별 1위 분포">
+          <h3>포지션별 1위 분포</h3>
+          <div class="simulation-list" id="simulation-position"></div>
+        </section>
+        <section class="simulation-box" aria-label="승자 조합 분포">
+          <h3>승자 조합</h3>
+          <div class="simulation-list" id="simulation-combos"></div>
+        </section>
+      </div>
+      <details class="scenario-details" id="gumayusi-scenarios">
+        <summary id="gumayusi-summary">구마유시 1위 시나리오</summary>
+        <div class="scenario-table-wrap" id="gumayusi-table"></div>
+      </details>
+    </section>
+
     <section class="warning" aria-label="데이터 주의">
       <p class="warning-title" id="warning-title"></p>
       <ul id="warnings"></ul>
@@ -457,11 +686,21 @@
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+    const formatCount = new Intl.NumberFormat("ko-KR");
 
     const controlsEl = document.getElementById("controls");
     const groupsEl = document.getElementById("groups");
     const summaryEl = document.getElementById("summary-grid");
     const totalEl = document.getElementById("weight-total");
+    const simulationMinEl = document.getElementById("simulation-min");
+    const simulationMaxEl = document.getElementById("simulation-max");
+    const simulationRunEl = document.getElementById("run-simulation");
+    const simulationStatusEl = document.getElementById("simulation-status");
+    const simulationKpisEl = document.getElementById("simulation-kpis");
+    const simulationPositionEl = document.getElementById("simulation-position");
+    const simulationCombosEl = document.getElementById("simulation-combos");
+    const gumayusiSummaryEl = document.getElementById("gumayusi-summary");
+    const gumayusiTableEl = document.getElementById("gumayusi-table");
 
     function clampWeight(value) {
       const parsed = Number(value);
@@ -519,6 +758,24 @@
     function playerScore(playerName) {
       const scores = DATA.players[playerName].scores;
       return componentKeys.reduce((sum, key) => sum + scores[key] * weights[key] / 100, 0);
+    }
+
+    function scenarioScore(playerName, scenarioWeights) {
+      const scores = DATA.players[playerName].scores;
+      return scenarioWeights.reduce((sum, weight, index) => {
+        return sum + scores[componentKeys[index]] * weight / 100;
+      }, 0);
+    }
+
+    function scenarioGroupResult(group, scenarioWeights) {
+      const ranked = group.players
+        .map((playerName) => ({
+          name: playerName,
+          score: scenarioScore(playerName, scenarioWeights),
+        }))
+        .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+      const gap = ranked.length > 1 ? ranked[0].score - ranked[1].score : 0;
+      return { ranked, winner: ranked[0], gap };
     }
 
     function groupResult(group) {
@@ -731,6 +988,272 @@
       });
     }
 
+    function formatPercent(count, total) {
+      if (!total) return "0%";
+      const value = count / total * 100;
+      if (value > 0 && value < 0.01) return `${value.toFixed(4)}%`;
+      return `${value.toFixed(2)}%`;
+    }
+
+    function renderSimulationEmpty() {
+      simulationKpisEl.replaceChildren();
+      simulationPositionEl.replaceChildren();
+      simulationCombosEl.replaceChildren();
+      gumayusiTableEl.replaceChildren();
+
+      [simulationPositionEl, simulationCombosEl, gumayusiTableEl].forEach((target) => {
+        const note = document.createElement("div");
+        note.className = "empty-note";
+        note.textContent = "시뮬레이션 실행 후 결과가 표시됩니다.";
+        target.append(note);
+      });
+    }
+
+    function renderKpi(label, value) {
+      const card = document.createElement("article");
+      card.className = "simulation-kpi";
+
+      const labelEl = document.createElement("div");
+      labelEl.className = "simulation-kpi-label";
+      labelEl.textContent = label;
+
+      const valueEl = document.createElement("div");
+      valueEl.className = "simulation-kpi-value";
+      valueEl.textContent = value;
+
+      card.append(labelEl, valueEl);
+      simulationKpisEl.append(card);
+    }
+
+    function renderSimulationRows(target, rows, total) {
+      target.replaceChildren();
+      if (!rows.length) {
+        const note = document.createElement("div");
+        note.className = "empty-note";
+        note.textContent = "해당 조건에서 결과가 없습니다.";
+        target.append(note);
+        return;
+      }
+
+      rows.forEach((row) => {
+        const item = document.createElement("div");
+        item.className = "sim-row";
+
+        const label = document.createElement("div");
+        label.className = "sim-label";
+        label.textContent = row.label;
+
+        const track = document.createElement("div");
+        track.className = "sim-track";
+        const fill = document.createElement("div");
+        fill.className = "sim-fill";
+        fill.style.width = `${total ? row.count / total * 100 : 0}%`;
+        if (row.color) fill.style.setProperty("--sim-color", row.color);
+        track.append(fill);
+
+        const count = document.createElement("div");
+        count.className = "sim-count";
+        count.textContent = `${formatCount.format(row.count)} · ${formatPercent(row.count, total)}`;
+
+        item.append(label, track, count);
+        target.append(item);
+      });
+    }
+
+    function renderGumayusiTable(result) {
+      gumayusiTableEl.replaceChildren();
+      gumayusiSummaryEl.textContent =
+        `구마유시 1위 시나리오 ${formatCount.format(result.gumayusiBotWins)}개`;
+
+      if (!result.gumayusiRows.length) {
+        const note = document.createElement("div");
+        note.className = "empty-note";
+        note.textContent = "해당 조건에서 구마유시가 원딜 1위인 시나리오가 없습니다.";
+        gumayusiTableEl.append(note);
+        return;
+      }
+
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const header = document.createElement("tr");
+      ["리그", "월즈", "KeSPA", "All-Pro", "POG/POM", "Top", "Jungle", "원딜차", "Gumayusi", "Peyz", "Viper"].forEach((text) => {
+        const th = document.createElement("th");
+        th.textContent = text;
+        header.append(th);
+      });
+      thead.append(header);
+
+      const tbody = document.createElement("tbody");
+      result.gumayusiRows.forEach((row) => {
+        const tr = document.createElement("tr");
+        [
+          ...row.weights,
+          row.topWinner,
+          row.jungleWinner,
+          formatScore.format(row.botGap),
+          formatScore.format(row.gumayusiScore),
+          formatScore.format(row.peyzScore),
+          formatScore.format(row.viperScore),
+        ].forEach((value) => {
+          const td = document.createElement("td");
+          td.textContent = String(value);
+          tr.append(td);
+        });
+        tbody.append(tr);
+      });
+
+      table.append(thead, tbody);
+      gumayusiTableEl.append(table);
+
+      if (result.gumayusiBotWins > result.gumayusiRows.length) {
+        const note = document.createElement("div");
+        note.className = "empty-note";
+        note.textContent = `화면에는 상위 ${formatCount.format(result.gumayusiRows.length)}개만 표시합니다.`;
+        gumayusiTableEl.append(note);
+      }
+    }
+
+    function calculateScenarios(minWeight, maxWeight) {
+      const positionCounts = Object.fromEntries(
+        DATA.groups.map((group) => [group.key, Object.fromEntries(group.players.map((player) => [player, 0]))])
+      );
+      const comboCounts = new Map();
+      const gumayusiRows = [];
+      const weightsBuffer = [];
+      const selectedTarget = { top: "Zeus", jungle: "Canyon", bot: "Gumayusi" };
+      let total = 0;
+      let selectedWins = 0;
+      let gumayusiBotWins = 0;
+
+      function recordScenario(scenarioWeights) {
+        total += 1;
+        const results = Object.fromEntries(
+          DATA.groups.map((group) => [group.key, scenarioGroupResult(group, scenarioWeights)])
+        );
+        DATA.groups.forEach((group) => {
+          positionCounts[group.key][results[group.key].winner.name] += 1;
+        });
+
+        const combo = DATA.groups.map((group) => results[group.key].winner.name).join(" / ");
+        comboCounts.set(combo, (comboCounts.get(combo) || 0) + 1);
+
+        if (
+          results.top?.winner.name === selectedTarget.top &&
+          results.jungle?.winner.name === selectedTarget.jungle &&
+          results.bot?.winner.name === selectedTarget.bot
+        ) {
+          selectedWins += 1;
+        }
+
+        if (results.bot?.winner.name === "Gumayusi") {
+          gumayusiBotWins += 1;
+          const gumayusiRow = {
+            weights: [...scenarioWeights],
+            topWinner: results.top?.winner.name || "",
+            jungleWinner: results.jungle?.winner.name || "",
+            botGap: results.bot.gap,
+            gumayusiScore: scenarioScore("Gumayusi", scenarioWeights),
+            peyzScore: scenarioScore("Peyz", scenarioWeights),
+            viperScore: scenarioScore("Viper", scenarioWeights),
+          };
+
+          if (gumayusiRows.length < 200) {
+            gumayusiRows.push(gumayusiRow);
+          } else {
+            let weakestIndex = 0;
+            for (let index = 1; index < gumayusiRows.length; index += 1) {
+              if (gumayusiRows[index].botGap < gumayusiRows[weakestIndex].botGap) {
+                weakestIndex = index;
+              }
+            }
+            if (gumayusiRow.botGap > gumayusiRows[weakestIndex].botGap) {
+              gumayusiRows[weakestIndex] = gumayusiRow;
+            }
+          }
+        }
+      }
+
+      function enumerate(index, remaining) {
+        if (index === componentKeys.length - 1) {
+          if (remaining >= minWeight && remaining <= maxWeight) {
+            weightsBuffer[index] = remaining;
+            recordScenario([...weightsBuffer]);
+          }
+          return;
+        }
+
+        const slotsLeft = componentKeys.length - index - 1;
+        const low = Math.max(minWeight, remaining - slotsLeft * maxWeight);
+        const high = Math.min(maxWeight, remaining - slotsLeft * minWeight);
+        for (let value = low; value <= high; value += 1) {
+          weightsBuffer[index] = value;
+          enumerate(index + 1, remaining - value);
+        }
+      }
+
+      enumerate(0, 100);
+      gumayusiRows.sort((a, b) => b.botGap - a.botGap);
+      return { total, selectedWins, gumayusiBotWins, positionCounts, comboCounts, gumayusiRows };
+    }
+
+    function renderSimulation(result, minWeight, maxWeight, elapsedMs) {
+      simulationStatusEl.textContent =
+        `조건: 각 지표 ${minWeight}-${maxWeight}% · 1% 단위 · 계산 ${elapsedMs.toFixed(0)}ms`;
+
+      simulationKpisEl.replaceChildren();
+      renderKpi("전체 시나리오", formatCount.format(result.total));
+      renderKpi("Zeus/Canyon/Gumayusi", formatCount.format(result.selectedWins));
+      renderKpi("Gumayusi 원딜 1위", formatCount.format(result.gumayusiBotWins));
+      renderKpi("Peyz 원딜 1위", formatCount.format(result.positionCounts.bot?.Peyz || 0));
+
+      const positionRows = [];
+      DATA.groups.forEach((group) => {
+        group.players.forEach((player) => {
+          positionRows.push({
+            label: `${group.label} · ${player}`,
+            count: result.positionCounts[group.key][player] || 0,
+            color: DATA.players[player].color,
+          });
+        });
+      });
+      positionRows.sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+      renderSimulationRows(simulationPositionEl, positionRows, result.total);
+
+      const comboRows = Array.from(result.comboCounts.entries())
+        .map(([label, count]) => ({ label, count }))
+        .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+      renderSimulationRows(simulationCombosEl, comboRows, result.total);
+      renderGumayusiTable(result);
+    }
+
+    function runSimulation() {
+      const minWeight = clampWeight(simulationMinEl.value);
+      const maxWeight = clampWeight(simulationMaxEl.value);
+      simulationMinEl.value = String(minWeight);
+      simulationMaxEl.value = String(maxWeight);
+
+      if (minWeight > maxWeight) {
+        simulationStatusEl.textContent = "최저값이 최고값보다 큽니다.";
+        return;
+      }
+      if (minWeight * componentKeys.length > 100 || maxWeight * componentKeys.length < 100) {
+        simulationStatusEl.textContent = "합계 100%를 만들 수 없는 범위입니다.";
+        return;
+      }
+
+      simulationRunEl.disabled = true;
+      simulationRunEl.textContent = "계산 중";
+      simulationStatusEl.textContent = "시나리오를 계산하고 있습니다.";
+
+      window.setTimeout(() => {
+        const startedAt = performance.now();
+        const result = calculateScenarios(minWeight, maxWeight);
+        renderSimulation(result, minWeight, maxWeight, performance.now() - startedAt);
+        simulationRunEl.disabled = false;
+        simulationRunEl.textContent = "시뮬레이션 실행";
+      }, 0);
+    }
+
     function updateControls() {
       DATA.components.forEach((component) => {
         const wrap = document.getElementById(`control-${component.key}`);
@@ -768,11 +1291,13 @@
     document.getElementById("reset-even").addEventListener("click", () => {
       setWeights(Object.fromEntries(componentKeys.map((key) => [key, 20])));
     });
+    simulationRunEl.addEventListener("click", runSimulation);
 
     document.getElementById("generated-at").textContent = `생성: ${DATA.generatedAt}`;
     renderControls();
     renderStaticGroups();
     renderWarnings();
+    renderSimulationEmpty();
     update();
   </script>
 </body>
