@@ -10,7 +10,7 @@
 
 - Top: Zeus vs Kiin vs Doran
 - Jungle: Canyon vs Oner
-- Bot: Gumayusi vs Peyz vs Viper
+- Bot: Gumayusi vs Peyz vs Viper vs Ruler
 
 Mid와 Support는 v1 대시보드에서 제외했습니다.
 

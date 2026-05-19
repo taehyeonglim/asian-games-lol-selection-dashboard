@@ -30,7 +30,7 @@ COMPONENTS = [
 GROUPS = [
     {"key": "top", "label": "Top", "players": ["Zeus", "Kiin", "Doran"]},
     {"key": "jungle", "label": "Jungle", "players": ["Canyon", "Oner"]},
-    {"key": "bot", "label": "Bot", "players": ["Gumayusi", "Peyz", "Viper"]},
+    {"key": "bot", "label": "Bot", "players": ["Gumayusi", "Peyz", "Viper", "Ruler"]},
 ]
 
 PLAYER_COLORS = {
@@ -42,6 +42,7 @@ PLAYER_COLORS = {
     "Gumayusi": "#e76f51",
     "Peyz": "#457b9d",
     "Viper": "#6a994e",
+    "Ruler": "#2f855a",
 }
 
 REQUIRED_PLAYERS = {player for group in GROUPS for player in group["players"]}
@@ -551,7 +552,7 @@ HTML_TEMPLATE = """<!doctype html>
 
     .simulation-kpis {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 10px;
       margin-top: 12px;
     }
@@ -1213,7 +1214,7 @@ HTML_TEMPLATE = """<!doctype html>
       const table = document.createElement("table");
       const thead = document.createElement("thead");
       const header = document.createElement("tr");
-      ["리그", "월즈", "KeSPA", "All-Pro", "POG/POM", "Top", "Jungle", "원딜차", "Gumayusi", "Peyz", "Viper"].forEach((text) => {
+      ["리그", "월즈", "KeSPA", "All-Pro", "POG/POM", "Top", "Jungle", "원딜차", "Gumayusi", "Peyz", "Viper", "Ruler"].forEach((text) => {
         const th = document.createElement("th");
         th.textContent = text;
         header.append(th);
@@ -1231,6 +1232,7 @@ HTML_TEMPLATE = """<!doctype html>
           formatScore.format(row.gumayusiScore),
           formatScore.format(row.peyzScore),
           formatScore.format(row.viperScore),
+          formatScore.format(row.rulerScore),
         ].forEach((value) => {
           const td = document.createElement("td");
           td.textContent = String(value);
@@ -1292,6 +1294,7 @@ HTML_TEMPLATE = """<!doctype html>
             gumayusiScore: scenarioScore("Gumayusi", scenarioWeights),
             peyzScore: scenarioScore("Peyz", scenarioWeights),
             viperScore: scenarioScore("Viper", scenarioWeights),
+            rulerScore: scenarioScore("Ruler", scenarioWeights),
           };
 
           if (gumayusiRows.length < 200) {
@@ -1342,6 +1345,7 @@ HTML_TEMPLATE = """<!doctype html>
       renderKpi("Zeus/Canyon/Gumayusi", formatCount.format(result.selectedWins));
       renderKpi("Gumayusi 원딜 1위", formatCount.format(result.gumayusiBotWins));
       renderKpi("Peyz 원딜 1위", formatCount.format(result.positionCounts.bot?.Peyz || 0));
+      renderKpi("Ruler 원딜 1위", formatCount.format(result.positionCounts.bot?.Ruler || 0));
 
       const positionRows = [];
       DATA.groups.forEach((group) => {

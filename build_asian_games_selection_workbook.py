@@ -145,6 +145,20 @@ SOURCES = [
         "used_for": "Viper/BLG playoff placement context only",
         "note": "Not a regular-league row for first-review league scoring.",
     },
+    {
+        "id": "S20",
+        "name": "LPL 2024 Spring - Leaguepedia",
+        "url": "https://lol.fandom.com/wiki/LPL/2024_Season/Spring_Season",
+        "used_for": "Ruler/JDG 2024 LPL Spring regular, All-Pro, Man of the Match",
+        "note": "",
+    },
+    {
+        "id": "S21",
+        "name": "LPL 2024 Summer - Leaguepedia",
+        "url": "https://lol.fandom.com/wiki/LPL/2024_Season/Summer_Season",
+        "used_for": "Ruler/JDG 2024 LPL Summer regular, All-Pro, Man of the Match",
+        "note": "Summer MoM row uses the Leaguepedia table that includes placement-stage stats.",
+    },
 ]
 
 
@@ -159,7 +173,7 @@ PLAYERS = [
     ("Gumayusi", "Lee Min-hyeong", "BOT", "selected", "bot", "2024-2025 T1; 2025 KeSPA/2026 HLE"),
     ("Peyz", "Kim Su-hwan", "BOT", "contender", "bot", "2024 Gen.G; 2025 JDG; 2025 KeSPA/2026 T1"),
     ("Viper", "Park Do-hyeon", "BOT", "contender", "bot", "2024-2025 HLE; 2026 BLG"),
-    ("Ruler", "Park Jae-hyuk", "BOT", "context", "bot/context", "2025-2026 Gen.G"),
+    ("Ruler", "Park Jae-hyuk", "BOT", "contender", "bot", "2024 JDG; 2025-2026 Gen.G"),
     ("Keria", "Ryu Min-seok", "SUP", "selected", "support/context", "2024-2026 T1"),
     ("Doran", "Choi Hyeon-joon", "TOP", "contender", "top", "2024 HLE; 2025-2026 T1"),
     ("Peanut", "Han Wang-ho", "JNG", "context", "jungle/context", "2024-2025 HLE"),
@@ -178,6 +192,7 @@ ROSTERS = {
     "GEN_2026": ["Kiin", "Canyon", "Chovy", "Ruler"],
     "T1_2026": ["Doran", "Oner", "Faker", "Peyz", "Keria"],
     "HLE_2026": ["Zeus", "Kanavi", "Zeka", "Gumayusi", "Delight"],
+    "JDG_2024": ["Ruler"],
     "JDG_2025": ["Peyz"],
     "BLG_2026": ["Viper"],
 }
@@ -199,6 +214,8 @@ TEAM_PLAYERS = {
     ("2026 LCK Rounds 1-2 Regular Snapshot", "Gen.G"): ROSTERS["GEN_2026"],
     ("2026 LCK Rounds 1-2 Regular Snapshot", "T1"): ROSTERS["T1_2026"],
     ("2026 LCK Rounds 1-2 Regular Snapshot", "HLE"): ROSTERS["HLE_2026"],
+    ("2024 LPL Spring Regular", "JDG"): ROSTERS["JDG_2024"],
+    ("2024 LPL Summer Regular", "JDG"): ROSTERS["JDG_2024"],
     ("2025 LPL Split 1 Regular", "JDG"): ROSTERS["JDG_2025"],
     ("2026 LPL Split 1", "BLG"): ROSTERS["BLG_2026"],
 }
@@ -220,6 +237,8 @@ LEAGUE_STANDINGS = [
     ("2026 LCK Rounds 1-2 Regular Snapshot", "LCK", "2026 R1-2 through Week 7", "HLE", 1, 12, 2, 25, 8, 17, "S6", "snapshot before full R1-2 completion"),
     ("2026 LCK Rounds 1-2 Regular Snapshot", "LCK", "2026 R1-2 through Week 7", "T1", 3, 10, 4, 22, 9, 13, "S6", "snapshot before full R1-2 completion"),
     ("2026 LCK Rounds 1-2 Regular Snapshot", "LCK", "2026 R1-2 through Week 7", "Gen.G", 4, 10, 4, 22, 10, 12, "S6", "snapshot before full R1-2 completion"),
+    ("2024 LPL Spring Regular", "LPL", "2024 Spring", "JDG", 3, 13, 3, 27, 12, 15, "S20", "regular season row; JDG rank 3"),
+    ("2024 LPL Summer Regular", "LPL", "2024 Summer", "JDG", 5, 4, 4, 10, 10, 0, "S21", "Group Ascend row after placements; JDG rank 5"),
     ("2025 LPL Split 1 Regular", "LPL", "2025 Split 1", "JDG", 1, 3, 0, 9, 4, 5, "S9", "regular group-stage row only; Split 2/3 regular rows still missing"),
     ("2026 LPL Split 1", "LPL", "2026 Split 1", "BLG", 2, 6, 4, 15, 10, 5, "S10", "regular group-stage row; BLG later won playoffs per S19"),
 ]
@@ -299,6 +318,8 @@ ALL_PRO = [
     ("2025 LCK Rounds 3-5", "Faker", "MID", "T1", 3, "S5"),
     ("2025 LCK Rounds 3-5", "Gumayusi", "BOT", "T1", 3, "S5"),
     ("2025 LCK Rounds 3-5", "Delight", "SUP", "HLE", 3, "S5"),
+    ("2024 LPL Spring", "Ruler", "BOT", "JDG", 2, "S20"),
+    ("2024 LPL Summer", "Ruler", "BOT", "JDG", 3, "S21"),
     ("2025 LPL Split 1", "Peyz", "BOT", "JDG", 3, "S9"),
     ("2025 LPL Split 2", "Peyz", "BOT", "JDG", 2, "S17"),
     ("2026 LPL Split 1", "Viper", "BOT", "BLG", 2, "S10"),
@@ -339,13 +360,13 @@ VALIDATION_REPORT = [
     (
         "LPL regular rows",
         "corrected/partial",
-        "Changed Viper/BLG 2026 Split 1 league row from playoff champion rank 1 to regular Group Ascend rank 2; added JDG/Peyz 2025 Split 1 regular row.",
-        "Do not run final Gumayusi-Peyz-Viper weighting until missing LPL Split 2/3 regular and POG/POM rows are completed.",
+        "Changed Viper/BLG 2026 Split 1 league row from playoff champion rank 1 to regular Group Ascend rank 2; added JDG/Peyz 2025 Split 1 and JDG/Ruler 2024 Spring/Summer regular rows.",
+        "Do not run final bot-lane weighting until missing Peyz/Viper LPL Split 2/3 regular and POG/POM rows are completed.",
     ),
     (
         "LPL POG/POM",
         "incomplete",
-        "LPL POG/POM/MVP rows for Peyz and Viper are not collected in POG_POM.",
+        "Ruler 2024 LPL Man of the Match rows are collected; Peyz and Viper LPL POG/POM/MVP rows are still not collected in POG_POM.",
         "Candidate_Summary currently undercounts Peyz/Viper POG/POM.",
     ),
     (
@@ -386,6 +407,8 @@ POG_POM = [
     ("2024 LCK Summer", "POG points", "Peyz", "Gen.G", 1100, 1100, "S3"),
     ("2024 LCK Summer", "POG points", "Viper", "HLE", 400, 400, "S3"),
     ("2024 LCK Summer", "POG points", "Keria", "T1", 400, 400, "S3"),
+    ("2024 LPL Spring", "MVP times", "Ruler", "JDG", 6, 600, "S20"),
+    ("2024 LPL Summer", "MVP times", "Ruler", "JDG", 10, 1000, "S21"),
     ("2025 LCK Rounds 1-2", "POM times", "Zeus", "HLE", 7, 700, "S4"),
     ("2025 LCK Rounds 1-2", "POM times", "Kiin", "Gen.G", 2, 200, "S4"),
     ("2025 LCK Rounds 1-2", "POM times", "Doran", "T1", 1, 100, "S4"),
@@ -394,6 +417,7 @@ POG_POM = [
     ("2025 LCK Rounds 1-2", "POM times", "Faker", "T1", 2, 200, "S4"),
     ("2025 LCK Rounds 1-2", "POM times", "Zeka", "HLE", 3, 300, "S4"),
     ("2025 LCK Rounds 1-2", "POM times", "Gumayusi", "T1", 1, 100, "S4"),
+    ("2025 LCK Rounds 1-2", "POM times", "Ruler", "Gen.G", 2, 200, "S4"),
     ("2025 LCK Rounds 1-2", "POM times", "Viper", "HLE", 3, 300, "S4"),
     ("2025 LCK Rounds 1-2", "POM times", "Keria", "T1", 2, 200, "S4"),
     ("2025 LCK Rounds 3-5", "POM times", "Zeus", "HLE", 1, 100, "S5"),

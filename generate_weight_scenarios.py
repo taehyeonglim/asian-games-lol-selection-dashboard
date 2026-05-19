@@ -21,7 +21,7 @@ COMPONENTS = [
 GROUPS = {
     "Top": ["Zeus", "Kiin", "Doran"],
     "Jungle": ["Canyon", "Oner"],
-    "Bot": ["Gumayusi", "Peyz", "Viper"],
+    "Bot": ["Gumayusi", "Peyz", "Viper", "Ruler"],
 }
 
 
@@ -81,6 +81,7 @@ def main() -> None:
         "gumayusi_score",
         "peyz_score",
         "viper_score",
+        "ruler_score",
         "selected_zeus_canyon_guma",
     ]
 
@@ -138,6 +139,7 @@ def main() -> None:
                                 "gumayusi_score": round(score("Gumayusi", weights, vectors), 4),
                                 "peyz_score": round(score("Peyz", weights, vectors), 4),
                                 "viper_score": round(score("Viper", weights, vectors), 4),
+                                "ruler_score": round(score("Ruler", weights, vectors), 4),
                                 "selected_zeus_canyon_guma": "yes" if selected else "no",
                             }
                         )
