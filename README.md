@@ -8,7 +8,7 @@
 
 ## 포함된 비교
 
-- Top: Zeus vs Kiin
+- Top: Zeus vs Kiin vs Doran
 - Jungle: Canyon vs Oner
 - Bot: Gumayusi vs Peyz vs Viper
 

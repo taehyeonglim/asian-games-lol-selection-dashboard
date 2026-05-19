@@ -28,7 +28,7 @@ COMPONENTS = [
 ]
 
 GROUPS = [
-    {"key": "top", "label": "Top", "players": ["Zeus", "Kiin"]},
+    {"key": "top", "label": "Top", "players": ["Zeus", "Kiin", "Doran"]},
     {"key": "jungle", "label": "Jungle", "players": ["Canyon", "Oner"]},
     {"key": "bot", "label": "Bot", "players": ["Gumayusi", "Peyz", "Viper"]},
 ]
@@ -36,6 +36,7 @@ GROUPS = [
 PLAYER_COLORS = {
     "Zeus": "#d1495b",
     "Kiin": "#2a9d8f",
+    "Doran": "#8a5cf6",
     "Canyon": "#264653",
     "Oner": "#e9a13b",
     "Gumayusi": "#e76f51",
